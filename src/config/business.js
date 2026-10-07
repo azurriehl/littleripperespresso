@@ -203,6 +203,13 @@ const business = {
     food: {
       title: "Breakfast and lunch",
       text: "Simple plates that sit well next to a coffee, then something more filling once the morning crowd thins out. Mornings get busy, so text ahead.",
+      // Named lists under the text. Add a price to any item, e.g. { name: "Reuben", price: "$14.00" }.
+      lists: [
+        {
+          title: "Toasties",
+          items: [{ name: "Buffalo chicken" }, { name: "Reuben" }],
+        },
+      ],
       // Photos live in public/images/. "aspect" sets the frame shape (width / height)
       // and "focus" which part stays in view if the photo is cropped.
       image: {

@@ -271,6 +271,8 @@ p { margin: 0; }
 .c-smooth { grid-area: smooth; border-top-width: 2px; border-right-width: 2px; justify-content: flex-start; }
 .c-smooth .prices li { font-size: 1.25rem; }
 .c-food { grid-area: food; border-top-width: 2px; }
+.sublist { display: grid; gap: 10px; padding-top: 16px; border-top: 2px solid var(--line); }
+.sublist h4 { margin: 0; font: 700 .9rem/1 var(--font-body); text-transform: uppercase; letter-spacing: .08em; }
 .bento.has-new { grid-template-areas: "mocha hot" "mocha matcha" "smooth food" "new new"; }
 .c-new {
   grid-area: new; border-top-width: 2px;

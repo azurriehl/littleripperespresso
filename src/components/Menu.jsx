@@ -75,6 +75,14 @@ export default function Menu() {
               <h3 className="display">{food.title}</h3>
               <p>{food.text}</p>
             </div>
+            {food.lists?.map((list) =>
+              list.items?.length ? (
+                <div className="sublist" key={list.title}>
+                  <h4>{list.title}</h4>
+                  <PriceList items={list.items} plain={!list.items.some((i) => i.price)} />
+                </div>
+              ) : null
+            )}
           </article>
           {newItem ? (
             <article className="cell c-new">
