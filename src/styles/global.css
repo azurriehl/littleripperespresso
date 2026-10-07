@@ -218,6 +218,15 @@ p { margin: 0; }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .chip input:checked + span { background: var(--apricot); color: var(--on-apricot); border-color: var(--apricot); } }
 .chip input:focus-visible + span { outline: 3px solid var(--ink); outline-offset: 2px; }
 .chip span:hover { background: var(--apricot); color: var(--on-apricot); }
+.chip-wrap { display: inline-flex; align-items: stretch; }
+.chip-qty {
+  width: 4.5em; min-height: 44px; padding: 8px 6px; text-align: center;
+  font: 700 1rem var(--font-body); font-variant-numeric: tabular-nums;
+  color: var(--ink); background: var(--paper);
+  border: 2px solid var(--line); border-left: 0; border-radius: 0;
+}
+.chip-qty:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.drinks-help { font-size: .875rem; color: var(--ink-soft); margin: -4px 0 10px; }
 .row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
 .field input, .field select {
   width: 100%; min-height: 48px; padding: 10px 12px;

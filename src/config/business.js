@@ -123,7 +123,10 @@ const business = {
     intro:
       "Pick your coffee, add your name and a pick-up time, then send it as a text. We'll have it made when you get here.",
     numberLabel: "Text us on",
-    drinksLegend: "Your coffee",
+    drinksLegend: "Your order",
+    drinksHelp: "Tap a drink to add it and set how many. Tap it again to take it off.",
+    qtyAria: "How many",
+    maxQty: 20,
     drinks: [
       "Flat white",
       "Cappuccino",
@@ -134,8 +137,6 @@ const business = {
       { label: "Matcha", value: "Ceremonial matcha" },
       { label: "Mango smoothie", value: "Dreamy mango smoothie" },
     ],
-    qtyLabel: "How many",
-    maxQty: 6,
     nameLabel: "Your name",
     namePlaceholder: "Name for the cup…",
     extrasLabel: "Anything else",
@@ -151,6 +152,8 @@ const business = {
     message: {
       greeting: "Hi Little Ripper,",
       please: "please.",
+      and: "and",
+      noItems: "(pick a drink)",
       name: "Name:",
       noName: "(your name)",
       pickup: "Picking up",
@@ -161,6 +164,7 @@ const business = {
     copied: "Copied. Paste it into a text to the shop.",
     selected: "Message selected. Copy it and paste it into a text.",
     needName: "Add your name so we know whose cup it is.",
+    needDrink: "Pick at least one drink first.",
   },
 
   menu: {

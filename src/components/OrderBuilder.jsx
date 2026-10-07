@@ -6,11 +6,17 @@ import Button from "./ui/Button.jsx";
 
 const asOption = (d) => (typeof d === "string" ? { label: d, value: d } : d);
 
+// "a", "a and b", "a, b and c"
+function joinList(items, and) {
+  if (items.length <= 1) return items.join("");
+  return `${items.slice(0, -1).join(", ")} ${and} ${items[items.length - 1]}`;
+}
+
 export default function OrderBuilder() {
   const { order, phone } = business;
   const drinks = order.drinks.map(asOption);
-  const [drink, setDrink] = useState(drinks[0].value);
-  const [qty, setQty] = useState(1);
+  // Selected drinks in the order they were picked: [{ value, qty }]. qty stays a string while typing.
+  const [items, setItems] = useState([{ value: drinks[0].value, qty: "1" }]);
   const [name, setName] = useState("");
   const [extras, setExtras] = useState("");
   const [when, setWhen] = useState(order.pickup[0].value);
@@ -19,15 +25,48 @@ export default function OrderBuilder() {
 
   const message = useMemo(() => {
     const m = order.message;
-    const item = drink.charAt(0).toLowerCase() + drink.slice(1);
-    const line = `${qty} ${item}${qty > 1 ? "s" : ""}`;
+    const lines = items.map(({ value, qty }) => {
+      const n = Math.min(Math.max(parseInt(qty, 10) || 1, 1), order.maxQty);
+      const item = value.charAt(0).toLowerCase() + value.slice(1);
+      return `${n} ${item}${n > 1 ? "s" : ""}`;
+    });
+    const list = lines.length ? joinList(lines, m.and) : m.noItems;
     const extra = extras.trim() ? ` (${extras.trim()})` : "";
-    return `${m.greeting} ${line}${extra} ${m.please} ${m.name} ${name.trim() || m.noName}. ${m.pickup} ${when}. ${m.thanks}`;
-  }, [order.message, drink, qty, extras, name, when]);
+    return `${m.greeting} ${list}${extra} ${m.please} ${m.name} ${name.trim() || m.noName}. ${m.pickup} ${when}. ${m.thanks}`;
+  }, [order.message, order.maxQty, items, extras, name, when]);
+
+  const toggleDrink = (value) => {
+    setItems((list) =>
+      list.some((i) => i.value === value) ? list.filter((i) => i.value !== value) : [...list, { value, qty: "1" }]
+    );
+    setStatus("");
+  };
+
+  const setQtyFor = (value, qty) => {
+    const clean = qty.replace(/[^0-9]/g, "").slice(0, 2);
+    setItems((list) => list.map((i) => (i.value === value ? { ...i, qty: clean } : i)));
+  };
+
+  const fixQty = (value) => {
+    setItems((list) =>
+      list.map((i) => {
+        if (i.value !== value) return i;
+        const n = Math.min(Math.max(parseInt(i.qty, 10) || 1, 1), order.maxQty);
+        return { ...i, qty: String(n) };
+      })
+    );
+  };
 
   const smsHref = `${resolveHref("sms")}?&body=${encodeURIComponent(message)}`;
 
-  const onSend = () => setStatus(name.trim() ? "" : order.needName);
+  const onSend = (e) => {
+    if (!items.length) {
+      e.preventDefault();
+      setStatus(order.needDrink);
+      return;
+    }
+    setStatus(name.trim() ? "" : order.needName);
+  };
 
   const onCopy = () => {
     const selectFallback = () => {
@@ -66,51 +105,58 @@ export default function OrderBuilder() {
         <form className="builder" noValidate onSubmit={(e) => e.preventDefault()}>
           <fieldset>
             <legend>{order.drinksLegend}</legend>
+            <p className="drinks-help">{order.drinksHelp}</p>
             <div className="chips">
-              {drinks.map((d, i) => (
-                <label className="chip" key={d.value}>
-                  <input
-                    type="radio"
-                    name="drink"
-                    id={`drink-${i}`}
-                    value={d.value}
-                    checked={drink === d.value}
-                    onChange={touch(setDrink)}
-                  />
-                  <span>{d.label}</span>
-                </label>
-              ))}
+              {drinks.map((d, i) => {
+                const picked = items.find((it) => it.value === d.value);
+                return (
+                  <span className="chip-wrap" key={d.value}>
+                    <label className="chip">
+                      <input
+                        type="checkbox"
+                        name="drinks"
+                        id={`drink-${i}`}
+                        value={d.value}
+                        checked={Boolean(picked)}
+                        onChange={() => toggleDrink(d.value)}
+                      />
+                      <span>{d.label}</span>
+                    </label>
+                    {picked ? (
+                      <input
+                        className="chip-qty"
+                        id={`drink-${i}-qty`}
+                        type="text"
+                        inputMode="numeric"
+                        pattern="[0-9]*"
+                        autoComplete="off"
+                        aria-label={`${order.qtyAria}: ${d.label}`}
+                        value={picked.qty}
+                        onChange={(e) => setQtyFor(d.value, e.target.value)}
+                        onBlur={() => fixQty(d.value)}
+                        onFocus={(e) => e.target.select()}
+                      />
+                    ) : null}
+                  </span>
+                );
+              })}
             </div>
           </fieldset>
 
-          <div className="row2">
-            <div className="field">
-              <label className="lbl" htmlFor="qty">
-                {order.qtyLabel}
-              </label>
-              <select id="qty" name="qty" value={qty} onChange={(e) => setQty(parseInt(e.target.value, 10) || 1)}>
-                {Array.from({ length: order.maxQty }, (_, i) => i + 1).map((n) => (
-                  <option key={n} value={n}>
-                    {n}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="field">
-              <label className="lbl" htmlFor="order-name">
-                {order.nameLabel}
-              </label>
-              <input
-                id="order-name"
-                name="name"
-                type="text"
-                autoComplete="given-name"
-                spellCheck={false}
-                placeholder={order.namePlaceholder}
-                value={name}
-                onChange={touch(setName)}
-              />
-            </div>
+          <div className="field">
+            <label className="lbl" htmlFor="order-name">
+              {order.nameLabel}
+            </label>
+            <input
+              id="order-name"
+              name="name"
+              type="text"
+              autoComplete="given-name"
+              spellCheck={false}
+              placeholder={order.namePlaceholder}
+              value={name}
+              onChange={touch(setName)}
+            />
           </div>
 
           <div className="field">
