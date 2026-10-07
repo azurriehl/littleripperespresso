@@ -54,8 +54,9 @@ export default function Menu() {
           </article>
           <article className="cell c-food">
             {food.image?.src ? (
-              <div className="photo">
+              <div className="photo" style={food.image.aspect ? { aspectRatio: food.image.aspect } : undefined}>
                 <img
+                  style={food.image.focus ? { objectPosition: food.image.focus } : undefined}
                   src={food.image.src}
                   alt={food.image.alt}
                   width={food.image.width}

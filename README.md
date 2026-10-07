@@ -9,7 +9,7 @@ Open **`src/config/business.js`**. Every piece of text, every price, the brand c
 - Hide something: set it to `""` or an empty list `[]`.
 - Opening hours: add rows to `hours`, e.g. `{ days: "Mon to Fri", time: "6am to 2pm" }`. While it's empty, the site links to Google Maps for today's hours.
 - Reviews and FAQs: add real ones to `testimonials` and `faq`. Each section only appears once it has entries.
-- Photo: swap `menu.food.image.src` for your own photo's web address.
+- Photo: drop the file into `public/images/`, then set `menu.food.image.src` to `/images/your-file.webp`. `aspect` sets the frame shape and `focus` which part stays in view.
 
 ## Run it on your computer
 

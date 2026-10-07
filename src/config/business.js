@@ -136,6 +136,8 @@ const business = {
       "Hot chocolate",
       { label: "Matcha", value: "Ceremonial matcha" },
       { label: "Mango smoothie", value: "Dreamy mango smoothie" },
+      { label: "Strawberry smoothie", value: "Strawberries and cream smoothie" },
+      { label: "Banana smoothie", value: "Banana cinnamon smoothie" },
     ],
     nameLabel: "Your name",
     namePlaceholder: "Name for the cup…",
@@ -201,12 +203,15 @@ const business = {
     food: {
       title: "Breakfast and lunch",
       text: "Simple plates that sit well next to a coffee, then something more filling once the morning crowd thins out. Mornings get busy, so text ahead.",
-      // Stock photo from Unsplash until the café's own photos are ready.
+      // Photos live in public/images/. "aspect" sets the frame shape (width / height)
+      // and "focus" which part stays in view if the photo is cropped.
       image: {
-        src: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=1600&q=80",
-        alt: "Fried egg on toast with avocado",
-        width: 1600,
-        height: 1000,
+        src: "/images/flat-white-and-muffin.webp",
+        alt: "Flat white with heart latte art beside a muffin dusted with icing sugar",
+        width: 781,
+        height: 1020,
+        aspect: "1 / 1",
+        focus: "center",
       },
     },
     priceNote: "Drink prices as listed on our Uber Eats menu. Prices at the counter may differ.",

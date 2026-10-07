@@ -34,6 +34,16 @@ for (const url of urls) {
   console.log(`inlined photo ${Math.round(bytes.length / 1024)} KB`);
 }
 
+// Local photos from public/images/ as data URIs too.
+const mime = { webp: "image/webp", jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", avif: "image/avif", svg: "image/svg+xml" };
+const locals = [...new Set(js.match(/\/images\/[A-Za-z0-9._-]+\.(webp|jpe?g|png|avif|svg)/g) || [])];
+for (const path of locals) {
+  const bytes = readFileSync(join(dist, path));
+  const type = mime[path.split(".").pop().toLowerCase()];
+  js = js.split(path).join(`data:${type};base64,${bytes.toString("base64")}`);
+  console.log(`inlined ${path} ${Math.round(bytes.length / 1024)} KB`);
+}
+
 // Favicon as a data URI.
 const favicon = readFileSync(join(dist, "favicon.svg"), "utf8");
 html = html.replace('href="/favicon.svg"', () => `href="data:image/svg+xml,${encodeURIComponent(favicon)}"`);
