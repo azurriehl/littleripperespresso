@@ -35,7 +35,12 @@ const business = {
 
   // Opening hours. Add rows like { days: "Mon to Fri", time: "6am to 2pm" }.
   // While this is empty, the site links to Google Maps for today's hours.
-  hours: [],
+  hours: [
+    { days: "Monday to Friday", time: "6:30am to 12:30pm" },
+    { days: "Saturday", time: "6:30am to 12pm" },
+    { days: "Sunday", time: "Closed" },
+  ],
+  hoursLabel: "Hours",
   hoursFallback: "Today's hours on Google Maps",
 
   seo: {

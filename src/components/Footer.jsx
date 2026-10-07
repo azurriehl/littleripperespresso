@@ -4,7 +4,7 @@ import Hand from "./ui/Hand.jsx";
 import Icon from "./ui/Icon.jsx";
 
 export default function Footer() {
-  const { signoff, footer, hero, name, address, phone, email, hours } = business;
+  const { signoff, footer, hero, name, address, phone, email, hours, hoursLabel } = business;
   const year = new Date().getFullYear();
   return (
     <>
@@ -37,7 +37,9 @@ export default function Footer() {
             © {year} {name}, {address.line1}, {address.line2}.
             {phone.display ? ` Call or text ${phone.display}.` : ""}
             {email ? ` Email ${email}.` : ""}
-            {hours.length ? ` Open ${hours.map((h) => `${h.days} ${h.time}`).join(", ")}.` : ""}
+            {hours.length
+              ? ` ${hoursLabel}: ${hours.map((h) => `${h.days} ${h.time.charAt(0).toLowerCase() + h.time.slice(1)}`).join(", ")}.`
+              : ""}
           </p>
         </div>
       </footer>
