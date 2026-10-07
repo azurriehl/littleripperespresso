@@ -27,7 +27,7 @@ const business = {
   email: "littleripperespresso@gmail.com",
 
   links: {
-    directions: "https://share.google/p34yD2CDDUHBMSm1F",
+    directions: "https://maps.app.goo.gl/4VCYNGmcC1PH13Yi7",
     instagram: "https://www.instagram.com/littleripperespresso/",
     instagramHandle: "@littleripperespresso",
     uberEats: "https://www.ubereats.com/au/store/little-ripper-espresso/t0PelG4yUkugTwIQhzQJ-w",
