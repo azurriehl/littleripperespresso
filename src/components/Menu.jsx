@@ -2,6 +2,23 @@ import business from "../config/business.js";
 import SectionHeading from "./ui/SectionHeading.jsx";
 import Hand from "./ui/Hand.jsx";
 
+function Photo({ image, className = "photo" }) {
+  if (!image?.src) return null;
+  return (
+    <div className={className} style={image.aspect ? { aspectRatio: image.aspect } : undefined}>
+      <img
+        style={image.focus ? { objectPosition: image.focus } : undefined}
+        src={image.src}
+        alt={image.alt}
+        width={image.width}
+        height={image.height}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  );
+}
+
 function PriceList({ items, plain = false }) {
   return (
     <ul className={`prices${plain ? " plain" : ""}`}>
@@ -20,12 +37,12 @@ function PriceList({ items, plain = false }) {
 
 export default function Menu() {
   const { menu } = business;
-  const { feature, hotDrinks, matcha, smoothies, food } = menu;
+  const { feature, hotDrinks, matcha, smoothies, food, newItem } = menu;
   return (
     <section className="menu" id="menu" aria-labelledby="menu-title">
       <div className="wrap">
         <SectionHeading id="menu-title">{menu.title}</SectionHeading>
-        <div className="bento">
+        <div className={`bento${newItem ? " has-new" : ""}`}>
           <article className="cell c-mocha">
             <div>
               <h3 className="display">{feature.title}</h3>
@@ -53,24 +70,25 @@ export default function Menu() {
             <p>{smoothies.text}</p>
           </article>
           <article className="cell c-food">
-            {food.image?.src ? (
-              <div className="photo" style={food.image.aspect ? { aspectRatio: food.image.aspect } : undefined}>
-                <img
-                  style={food.image.focus ? { objectPosition: food.image.focus } : undefined}
-                  src={food.image.src}
-                  alt={food.image.alt}
-                  width={food.image.width}
-                  height={food.image.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ) : null}
+            <Photo image={food.image} />
             <div>
               <h3 className="display">{food.title}</h3>
               <p>{food.text}</p>
             </div>
           </article>
+          {newItem ? (
+            <article className="cell c-new">
+              <Photo image={newItem.image} />
+              <div className="new-copy">
+                {newItem.tag ? <span className="tag">{newItem.tag}</span> : null}
+                <div className="cell-top">
+                  <h3 className="display">{newItem.title}</h3>
+                  {newItem.price ? <span className="price">{newItem.price}</span> : null}
+                </div>
+                <p>{newItem.text}</p>
+              </div>
+            </article>
+          ) : null}
         </div>
         {menu.priceNote ? <p className="price-note">{menu.priceNote}</p> : null}
       </div>

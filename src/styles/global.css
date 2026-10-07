@@ -271,10 +271,21 @@ p { margin: 0; }
 .c-smooth { grid-area: smooth; border-top-width: 2px; border-right-width: 2px; justify-content: flex-start; }
 .c-smooth .prices li { font-size: 1.25rem; }
 .c-food { grid-area: food; border-top-width: 2px; }
+.bento.has-new { grid-template-areas: "mocha hot" "mocha matcha" "smooth food" "new new"; }
+.c-new {
+  grid-area: new; border-top-width: 2px;
+  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px); align-items: center;
+}
+.c-new h3 { font-size: clamp(2.4rem, 4.6vw, 4.4rem); }
+.new-copy { display: grid; gap: 14px; align-content: center; }
+.tag {
+  justify-self: start; padding: 6px 10px; background: var(--apricot); color: var(--on-apricot);
+  font: 700 .8rem/1 var(--font-body); text-transform: uppercase; letter-spacing: .08em;
+}
 .price-note { margin-top: 14px; font-size: .875rem; color: var(--ink-soft); }
 .photo { aspect-ratio: 16 / 10; width: 100%; overflow: hidden; background: var(--apricot); }
 .photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
-.c-food:hover .photo img { transform: scale(1.03); }
+.c-food:hover .photo img, .c-new:hover .photo img { transform: scale(1.03); }
 
 /* ---------- Find us ---------- */
 .find { border-top: 2px solid var(--line); }
@@ -353,6 +364,8 @@ p { margin: 0; }
   .order-in, .find-in { grid-template-columns: minmax(0, 1fr); }
   .row2 { grid-template-columns: minmax(0, 1fr); }
   .bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mocha" "hot" "matcha" "smooth" "food"; }
+  .bento.has-new { grid-template-areas: "mocha" "hot" "matcha" "smooth" "food" "new"; }
+  .c-new { grid-template-columns: minmax(0, 1fr); }
   .c-mocha { border-right-width: 0; border-bottom-width: 2px; min-height: 0; }
   .c-smooth { border-right-width: 0; }
   .find-copy { padding-inline-end: 0; }

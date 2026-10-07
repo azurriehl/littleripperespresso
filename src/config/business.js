@@ -214,6 +214,21 @@ const business = {
         focus: "center",
       },
     },
+    // Full-width spot under the menu for a new item. Set to null to hide it.
+    newItem: {
+      tag: "New",
+      title: "Chicken caesar wrap",
+      price: "", // add the counter price, e.g. "$16.00"
+      text: "Grilled chicken, cos lettuce, shaved parmesan and caesar dressing, wrapped and toasted.",
+      image: {
+        src: "/images/chicken-caesar-wrap.webp",
+        alt: "Chicken caesar wrap cut in half, filled with grilled chicken, cos lettuce and shaved parmesan",
+        width: 617,
+        height: 347,
+        aspect: "16 / 9",
+        focus: "center",
+      },
+    },
     priceNote: "Drink prices as listed on our Uber Eats menu. Prices at the counter may differ.",
   },
 
