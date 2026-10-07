@@ -24,7 +24,7 @@ npm run dev        # opens a preview at http://localhost:5173
 
 ```bash
 npm run build          # production files in dist/, ready for Vercel, Netlify or any static host
-npm run build:single   # one self-contained file at ../index.html (photo and code inlined)
+npm run build:single   # one self-contained file at dist/little-ripper-espresso.html (photo and code inlined)
 ```
 
 ## Where things are
