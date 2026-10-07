@@ -140,8 +140,8 @@ const business = {
     nameLabel: "Your name",
     namePlaceholder: "Name for the cup…",
     extrasLabel: "Anything else",
-    extrasPlaceholder: "Oat milk, extra shot, coconut water…",
-    extrasHelp: "Milk, sugar, an extra shot, or a different smoothie. Write it how you'd say it.",
+    extrasPlaceholder: "Can I get oat milk and an extra shot…",
+    extrasHelp: "Milk, sugar, an extra shot or a smoothie swap. Write it how you'd say it at the counter.",
     pickupLegend: "Pick-up",
     pickup: [
       { label: "About 10 min", value: "in about 10 minutes" },
