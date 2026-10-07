@@ -128,6 +128,8 @@ const business = {
     intro:
       "Pick your coffee, add your name and a pick-up time, then send it as a text. We'll have it made when you get here.",
     numberLabel: "Text us on",
+    // Built from "hours" above, skipping closed days.
+    hoursNote: "We take text orders during opening hours:",
     drinksLegend: "Your order",
     drinksHelp: "Tap a drink to add it and set how many. Tap it again to take it off.",
     qtyAria: "How many",

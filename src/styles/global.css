@@ -199,6 +199,7 @@ p { margin: 0; }
 .order h2 { font-size: clamp(3rem, 7vw, 6.4rem); }
 .order-copy > * + * { margin-top: 22px; }
 .order-copy p { max-width: 42ch; color: var(--ink-soft); font-size: 1.125rem; }
+.order-copy .order-hours { color: var(--ink); font-size: 1rem; font-weight: 700; text-wrap: pretty; }
 .number { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-weight: 700; }
 .number output { font: 800 clamp(1.8rem, 3vw, 2.4rem)/1 var(--font-display); font-variation-settings: "wdth" 80; user-select: all; }
 .todo { display: inline-block; border: 2px dashed currentColor; padding: 6px 10px; font-size: .9rem; font-weight: 700; color: var(--ink); }

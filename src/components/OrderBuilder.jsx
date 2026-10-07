@@ -13,7 +13,8 @@ function joinList(items, and) {
 }
 
 export default function OrderBuilder() {
-  const { order, phone } = business;
+  const { order, phone, hours } = business;
+  const openHours = hours.filter((h) => !/closed/i.test(h.time));
   const drinks = order.drinks.map(asOption);
   // Selected drinks in the order they were picked: [{ value, qty }]. qty stays a string while typing.
   const [items, setItems] = useState([{ value: drinks[0].value, qty: "1" }]);
@@ -104,6 +105,11 @@ export default function OrderBuilder() {
           {phone.display ? (
             <p className="number">
               {order.numberLabel} <output htmlFor="sms-link">{phone.display}</output>
+            </p>
+          ) : null}
+          {openHours.length && order.hoursNote ? (
+            <p className="order-hours">
+              {order.hoursNote} {openHours.map((h) => `${h.days} ${h.time}`).join(", ")}.
             </p>
           ) : null}
         </div>
