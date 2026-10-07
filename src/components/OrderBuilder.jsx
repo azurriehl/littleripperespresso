@@ -31,8 +31,14 @@ export default function OrderBuilder() {
       return `${n} ${item}${n > 1 ? "s" : ""}`;
     });
     const list = lines.length ? joinList(lines, m.and) : m.noItems;
-    const extra = extras.trim() ? ` (${extras.trim()})` : "";
-    return `${m.greeting} ${list}${extra} ${m.please} ${m.name} ${name.trim() || m.noName}. ${m.pickup} ${when}. ${m.thanks}`;
+    // "Anything else" becomes its own sentence after the order, as typed.
+    let extra = extras.trim();
+    if (extra) {
+      extra = extra.charAt(0).toUpperCase() + extra.slice(1);
+      if (!/[.!?]$/.test(extra)) extra += ".";
+      extra = ` ${extra}`;
+    }
+    return `${m.greeting} ${list} ${m.please}${extra} ${m.name} ${name.trim() || m.noName}. ${m.pickup} ${when}. ${m.thanks}`;
   }, [order.message, order.maxQty, items, extras, name, when]);
 
   const toggleDrink = (value) => {
