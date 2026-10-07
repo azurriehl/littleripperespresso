@@ -78,7 +78,7 @@ export default function Menu() {
             {food.lists?.map((list) =>
               list.items?.length ? (
                 <div className="sublist" key={list.title}>
-                  <h4>{list.title}</h4>
+                  <h3 className="display">{list.title}</h3>
                   <PriceList items={list.items} plain={!list.items.some((i) => i.price)} />
                 </div>
               ) : null
