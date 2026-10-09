@@ -35,20 +35,49 @@ function PriceList({ items, plain = false }) {
   );
 }
 
+// Food items with an optional square photo, price and short note.
+function FoodList({ items }) {
+  return (
+    <ul className="food-list">
+      {items.map((it) => (
+        <li key={it.name}>
+          {it.image?.src ? (
+            <img className="thumb" src={it.image.src} alt={it.image.alt} width="72" height="72" loading="lazy" decoding="async" />
+          ) : (
+            <span className="thumb thumb-empty" aria-hidden="true">
+              <Hand />
+            </span>
+          )}
+          <div className="food-body">
+            <div className="food-top">
+              <span className="food-name">{it.name}</span>
+              {it.price ? <span className="food-price">{it.price}</span> : null}
+            </div>
+            {it.note ? <p className="food-note">{it.note}</p> : null}
+          </div>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
 export default function Menu() {
   const { menu } = business;
   const { feature, hotDrinks, matcha, smoothies, food, newItem } = menu;
+  const lists = (food.lists || []).filter((l) => l.items?.length);
   return (
     <section className="menu" id="menu" aria-labelledby="menu-title">
       <div className="wrap">
         <SectionHeading id="menu-title">{menu.title}</SectionHeading>
         <div className={`bento${newItem ? " has-new" : ""}`}>
-          <article className="cell c-mocha">
-            <div>
+          <article className="cell c-feature">
+            <div className="feature-copy">
+              {feature.tag ? <span className="tag">{feature.tag}</span> : null}
               <h3 className="display">{feature.title}</h3>
+              {feature.price ? <span className="price">{feature.price}</span> : null}
               <p>{feature.text}</p>
             </div>
-            <Hand />
+            {feature.image?.src ? <Photo image={feature.image} /> : <Hand />}
           </article>
           <article className="cell c-hot">
             <h3 className="display">{hotDrinks.title}</h3>
@@ -69,21 +98,6 @@ export default function Menu() {
             <PriceList items={smoothies.items} plain />
             <p>{smoothies.text}</p>
           </article>
-          <article className="cell c-food">
-            <Photo image={food.image} />
-            <div>
-              <h3 className="display">{food.title}</h3>
-              <p>{food.text}</p>
-            </div>
-            {food.lists?.map((list) =>
-              list.items?.length ? (
-                <div className="sublist" key={list.title}>
-                  <h3 className="display">{list.title}</h3>
-                  <PriceList items={list.items} plain={!list.items.some((i) => i.price)} />
-                </div>
-              ) : null
-            )}
-          </article>
           {newItem ? (
             <article className="cell c-new">
               <Photo image={newItem.image} />
@@ -97,6 +111,25 @@ export default function Menu() {
               </div>
             </article>
           ) : null}
+          <article className="cell c-food">
+            <Photo image={food.image} />
+            <div className="food-copy">
+              <div>
+                <h3 className="display">{food.title}</h3>
+                <p>{food.text}</p>
+              </div>
+              {lists.length ? (
+                <div className="food-lists">
+                  {lists.map((list) => (
+                    <div className="sublist" key={list.title}>
+                      <h3 className="display">{list.title}</h3>
+                      <FoodList items={list.items} />
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </article>
         </div>
         {menu.priceNote ? <p className="price-note">{menu.priceNote}</p> : null}
       </div>

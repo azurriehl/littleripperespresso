@@ -113,7 +113,7 @@ const business = {
     },
   ],
 
-  marquee: ["Flat white", "Mocha", "Matcha", "Mango smoothie", "Breakfast", "Long black"],
+  marquee: ["Flat white", "Toasties", "Matcha", "Mango smoothie", "Breakfast", "Long black"],
   marqueePause: "Pause",
   marqueePlay: "Play",
 
@@ -139,7 +139,6 @@ const business = {
       "Cappuccino",
       "Latte",
       "Long black",
-      "Mocha",
       "Hot chocolate",
       { label: "Matcha", value: "Ceremonial matcha" },
       { label: "Mango smoothie", value: "Dreamy mango smoothie" },
@@ -178,9 +177,19 @@ const business = {
 
   menu: {
     title: "What people come back for",
+    // The big orange box. Usually the most popular item.
     feature: {
-      title: "The mocha",
-      text: "Espresso and chocolate, smooth and rich. The one regulars order without looking at the board.",
+      tag: "Popular",
+      title: "Bacon and egg croissant bun",
+      price: "$16.00",
+      text: "American cheese, fried egg, bacon, relish and secret house sauce, served with pickles.",
+      image: {
+        src: "/images/bacon-egg-croissant-bun.webp",
+        alt: "Bacon and egg croissant bun with melted cheese, served with pickles",
+        width: 576,
+        height: 576,
+        aspect: "1 / 1",
+      },
     },
     hotDrinks: {
       title: "Hot drinks",
@@ -210,13 +219,6 @@ const business = {
     food: {
       title: "Breakfast and lunch",
       text: "Simple plates that sit well next to a coffee, then something more filling once the morning crowd thins out. Mornings get busy, so text ahead.",
-      // Named lists under the text. Add a price to any item, e.g. { name: "Reuben", price: "$14.00" }.
-      lists: [
-        {
-          title: "Toasties",
-          items: [{ name: "Buffalo chicken" }, { name: "Reuben" }],
-        },
-      ],
       // Photos live in public/images/. "aspect" sets the frame shape (width / height)
       // and "focus" which part stays in view if the photo is cropped.
       image: {
@@ -227,6 +229,43 @@ const business = {
         aspect: "1 / 1",
         focus: "center",
       },
+      // Named lists. Each item can have a price, a short note and a square photo.
+      lists: [
+        {
+          title: "Breakfast",
+          items: [
+            {
+              name: "Ham and cheese croissant",
+              price: "$14.00",
+              image: { src: "/images/ham-cheese-croissant.webp", alt: "Ham and cheese croissant" },
+            },
+            {
+              name: "Smashed avocado",
+              price: "$15.50",
+              note: "Spiced avocado, rocket, pomegranate molasses and aged goats cheese.",
+              image: { src: "/images/smashed-avocado.webp", alt: "Smashed avocado with rocket and grated cheese" },
+            },
+          ],
+        },
+        {
+          title: "Toasties",
+          items: [
+            {
+              name: "Jalapeno popper",
+              price: "$15.00",
+              note: "Three cheese blend, fermented jalapeno salsa and pickled jalapenos on sourdough.",
+              image: { src: "/images/jalapeno-popper-toastie.webp", alt: "Jalapeno popper toastie with a pickled pepper" },
+            },
+            {
+              name: "Ripper Reuben",
+              price: "$21.00",
+              note: "Slow-cooked pastrami, sauerkraut, pickles, cheddar and housemade Russian sauce on sourdough.",
+              image: { src: "/images/ripper-reuben.webp", alt: "Reuben toastie stacked in halves, with a pickle" },
+            },
+            { name: "Buffalo chicken", price: "$21.00" },
+          ],
+        },
+      ],
     },
     // Full-width spot under the menu for a new item. Set to null to hide it.
     newItem: {
@@ -243,7 +282,7 @@ const business = {
         focus: "center",
       },
     },
-    priceNote: "Drink prices as listed on our Uber Eats menu. Prices at the counter may differ.",
+    priceNote: "Prices as listed on our Uber Eats menu. Prices at the counter may differ.",
   },
 
   // Real customer reviews only. Example:

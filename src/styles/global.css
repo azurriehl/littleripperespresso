@@ -253,7 +253,7 @@ p { margin: 0; }
 /* ---------- Menu bento ---------- */
 .menu { padding-block: 0 clamp(64px, 9vw, 128px); }
 .menu h2 { font-size: clamp(2.6rem, 6vw, 5.4rem); margin-bottom: clamp(24px, 4vw, 48px); max-width: 14ch; }
-.bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "mocha hot" "mocha matcha" "smooth food"; border: 2px solid var(--line); }
+.bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "feature hot" "feature matcha" "smooth smooth" "food food"; border: 2px solid var(--line); }
 .cell { padding: clamp(22px, 3vw, 40px); display: flex; flex-direction: column; justify-content: space-between; gap: 18px; min-width: 0; border: 0 solid var(--line); }
 .cell h3 { font-size: clamp(2rem, 3.6vw, 3.4rem); }
 .cell p { max-width: 40ch; }
@@ -264,21 +264,39 @@ p { margin: 0; }
 .prices li span:last-child { font-weight: 700; }
 .prices.plain li span:last-child { font-weight: 500; }
 .prices em { font-style: normal; font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-left: 8px; color: var(--ink-soft); }
-.c-mocha { grid-area: mocha; background: var(--apricot); color: var(--on-apricot); border-right-width: 2px; min-height: clamp(360px, 40vw, 560px); }
-.c-mocha h3 { font-size: clamp(3.2rem, 7.5vw, 7rem); }
-.c-mocha .hand { height: clamp(120px, 14vw, 200px); width: auto; aspect-ratio: 264 / 392; color: var(--cream); align-self: flex-end; transform: rotate(-8deg); }
-.c-hot { grid-area: hot; border-bottom-width: 2px; }
-.c-matcha { grid-area: matcha; background: var(--deep); color: var(--on-deep); }
-.c-smooth { grid-area: smooth; border-top-width: 2px; border-right-width: 2px; justify-content: flex-start; }
+.c-feature { grid-area: feature; background: var(--apricot); color: var(--on-apricot); border-right-width: 2px; }
+.feature-copy { display: grid; gap: 14px; justify-items: start; }
+.c-feature h3 { font-size: clamp(2.6rem, 5vw, 4.8rem); }
+.c-feature .tag { background: var(--on-apricot); color: var(--apricot); }
+.c-feature .photo { max-width: 420px; align-self: flex-end; }
+.c-feature .hand { height: clamp(120px, 14vw, 200px); width: auto; aspect-ratio: 264 / 392; color: var(--cream); align-self: flex-end; transform: rotate(-8deg); }
+.c-hot { grid-area: hot; border-bottom-width: 2px; justify-content: flex-start; }
+.c-matcha { grid-area: matcha; background: var(--deep); color: var(--on-deep); justify-content: flex-start; }
+.c-smooth { grid-area: smooth; border-top-width: 2px; justify-content: flex-start; }
+.has-new .c-smooth { border-right-width: 2px; }
 .c-smooth .prices li { font-size: 1.25rem; }
-.c-food { grid-area: food; border-top-width: 2px; }
-.sublist { display: grid; gap: 14px; padding-top: 22px; border-top: 2px solid var(--line); }
-.bento.has-new { grid-template-areas: "mocha hot" "mocha matcha" "smooth food" "new new"; }
+.c-food {
+  grid-area: food; border-top-width: 2px;
+  display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.7fr); gap: clamp(24px, 4vw, 56px); align-items: start;
+}
+.food-copy { display: grid; gap: 24px; min-width: 0; }
+.food-lists { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px clamp(20px, 3vw, 40px); }
+.food-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
+.food-list li { display: grid; grid-template-columns: 72px minmax(0, 1fr); gap: 14px; align-items: start; }
+.thumb { width: 72px; height: 72px; object-fit: cover; display: block; background: var(--apricot); }
+.thumb-empty { display: grid; place-items: center; color: var(--on-apricot); }
+.thumb-empty .hand { height: 46px; width: auto; aspect-ratio: 264 / 392; }
+.food-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 1.125rem; }
+.food-name { font-weight: 500; }
+.food-price { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.food-note { font-size: .9rem; color: var(--ink-soft); margin-top: 4px; max-width: 40ch; }
+.sublist { display: grid; gap: 14px; padding-top: 22px; border-top: 2px solid var(--line); align-content: start; }
+.bento.has-new { grid-template-areas: "feature hot" "feature matcha" "smooth new" "food food"; }
 .c-new {
   grid-area: new; border-top-width: 2px;
-  display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 48px); align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: start;
 }
-.c-new h3 { font-size: clamp(2.4rem, 4.6vw, 4.4rem); }
+.c-new h3 { font-size: clamp(2rem, 3.6vw, 3.4rem); }
 .new-copy { display: grid; gap: 14px; align-content: center; }
 .tag {
   justify-self: start; padding: 6px 10px; background: var(--apricot); color: var(--on-apricot);
@@ -287,7 +305,7 @@ p { margin: 0; }
 .price-note { margin-top: 14px; font-size: .875rem; color: var(--ink-soft); }
 .photo { aspect-ratio: 16 / 10; width: 100%; overflow: hidden; background: var(--apricot); }
 .photo img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform .4s var(--ease); }
-.c-food:hover .photo img, .c-new:hover .photo img { transform: scale(1.03); }
+.c-food:hover > .photo img, .c-new:hover .photo img, .c-feature:hover .photo img { transform: scale(1.03); }
 
 /* ---------- Find us ---------- */
 .find { border-top: 2px solid var(--line); }
@@ -339,6 +357,8 @@ p { margin: 0; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1023px) {
+  .c-food { grid-template-columns: minmax(0, 1fr); }
+  .c-food > .photo { max-width: 360px; }
   .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .tile:nth-child(2) { border-right: 0; }
   .tile:nth-child(-n+2) { border-bottom: 2px solid var(--line); }
@@ -350,6 +370,8 @@ p { margin: 0; }
   .builder { max-width: 720px; }
 }
 @media (max-width: 767px) {
+  .food-lists { grid-template-columns: minmax(0, 1fr); }
+  .c-feature .photo { max-width: none; }
   .nav-links .nav-text { display: none; }
   .menu-toggle { display: inline-flex; }
   .wordmark, .footer-mark .display { font-size: clamp(3.2rem, 24vw, 9rem); white-space: normal; line-height: .84; }
@@ -365,10 +387,10 @@ p { margin: 0; }
   .statement .hand { height: 200px; justify-self: end; margin-top: -24px; }
   .order-in, .find-in { grid-template-columns: minmax(0, 1fr); }
   .row2 { grid-template-columns: minmax(0, 1fr); }
-  .bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "mocha" "hot" "matcha" "smooth" "food"; }
-  .bento.has-new { grid-template-areas: "mocha" "hot" "matcha" "smooth" "food" "new"; }
-  .c-new { grid-template-columns: minmax(0, 1fr); }
-  .c-mocha { border-right-width: 0; border-bottom-width: 2px; min-height: 0; }
+  .bento { grid-template-columns: minmax(0, 1fr); grid-template-areas: "feature" "hot" "matcha" "smooth" "food"; }
+  .bento.has-new { grid-template-areas: "feature" "hot" "matcha" "smooth" "new" "food"; }
+  .c-feature { border-right-width: 0; border-bottom-width: 2px; }
+  .has-new .c-smooth { border-right-width: 0; }
   .c-smooth { border-right-width: 0; }
   .find-copy { padding-inline-end: 0; }
   .find-block { margin-inline: calc(-1 * var(--gutter)); min-height: 360px; }
